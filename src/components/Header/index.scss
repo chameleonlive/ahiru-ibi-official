@@ -1,0 +1,49 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #e8983b;
+  padding: 8px 24px;
+  height: 70px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+
+  & > .menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & > .menu-item {
+      color: #fff;
+      font-weight: bold;
+      &:not(:first-child) {
+        padding-left: 36px;
+      }
+
+      &.sns {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & > .sns-icons {
+          &:not(:first-child) {
+            padding-left: 23px;
+          }
+          & > svg > path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+}
