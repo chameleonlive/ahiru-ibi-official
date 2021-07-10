@@ -6,7 +6,6 @@ interface Size {
   height: number | undefined;
 }
 
-// Hook
 export function useWindowSize(): Size {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -31,4 +30,16 @@ export function useWindowSize(): Size {
     return () => window.removeEventListener("resize", handleResize);
   }, []); // Empty array ensures that effect is only run on mount
   return windowSize;
+}
+
+export function useIsTouchDevice(): Boolean {
+  const [isTouchDevice, setIsTouchDevice] = useState<Boolean>(false);
+  useEffect(() => {
+    setIsTouchDevice(
+      "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+    );
+  }, []); // Empty array ensures that effect is only run on mount
+  return isTouchDevice;
 }
