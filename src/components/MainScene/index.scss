@@ -30,6 +30,10 @@
         height: 100%;
       }
 
+      & > .item {
+        cursor: pointer;
+      }
+
       & > .store {
         width: fit-content;
         height: 100%;

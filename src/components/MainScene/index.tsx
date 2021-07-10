@@ -38,25 +38,25 @@ export default function MainScene() {
           <div className="store">
             <img src={storeSrc} alt="" ref={storeRef} />
           </div>
-          <div className="logo">
+          <div className="item logo">
             <img src={logoSrc} alt="" />
           </div>
-          <div className="eb">
+          <div className="item eb">
             <img src={ebSrc} alt="" />
           </div>
-          <div className="gaygay">
+          <div className="item gaygay">
             <img src={gaygaySrc} alt="" />
           </div>
-          <div className="guaigai">
+          <div className="item guaigai">
             <img src={guaigaiSrc} alt="" />
           </div>
-          <div className="xiabing">
+          <div className="item xiabing">
             <img src={xiabingSrc} alt="" />
           </div>
-          <div className="kaorou">
+          <div className="item kaorou">
             <img src={kaorouSrc} alt="" />
           </div>
-          <div className="quackbox">
+          <div className="item quackbox">
             <img src={quackboxSrc} alt="" />
           </div>
         </div>

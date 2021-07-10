@@ -25,6 +25,8 @@
     align-items: center;
 
     & > .menu-item {
+      cursor: pointer;
+
       color: #fff;
       font-weight: bold;
       &:not(:first-child) {
