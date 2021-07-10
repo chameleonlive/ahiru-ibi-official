@@ -43,6 +43,9 @@ export default function MainScene() {
           <div className="gaygay">
             <img src={gaygaySrc} alt="" />
           </div>
+          <div className="guaigai">
+            <img src={guaigaiSrc} alt="" />
+          </div>
         </div>
       </div>
     </div>
