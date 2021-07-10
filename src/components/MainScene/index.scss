@@ -22,10 +22,24 @@
     width: 100vw;
 
     & > .scene {
+      position: relative;
+      width: fit-content;
       height: 100%;
 
       img {
         height: 100%;
+      }
+
+      & > .store {
+        width: fit-content;
+        height: 100%;
+      }
+
+      & > .eb {
+        position: absolute;
+        top: 28%;
+        left: 8%;
+        height: 64%;
       }
     }
   }
