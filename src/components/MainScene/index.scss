@@ -1,0 +1,32 @@
+.main-scene {
+  & > .scroller {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    z-index: 15;
+
+    & > .dummy {
+      overflow-x: hidden;
+      height: 2000px;
+    }
+  }
+
+  & > .viewport {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    & > .scene {
+      height: 100%;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+}
