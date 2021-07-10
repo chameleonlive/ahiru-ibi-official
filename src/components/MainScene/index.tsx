@@ -1,5 +1,6 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "../../utils/hooks";
+import useWindowScroll from "@react-hook/window-scroll";
 
 import storeSrc from "../../images/store.jpeg";
 import logoSrc from "../../images/logoShadow.png";
@@ -16,25 +17,23 @@ export default function MainScene() {
   const viewport = useWindowSize();
   const [scrollX, setScrollX] = useState<Number>();
   const storeRef = useRef<HTMLImageElement>(null);
+  const scrollY = useWindowScroll(60);
 
-  const handleScroll = useCallback(
-    (event: React.UIEvent<HTMLElement>) => {
-      if (viewport.height && viewport.width && storeRef.current?.clientWidth) {
-        const scrollTop = event.currentTarget.scrollTop;
-        const progress = scrollTop / (2000 - viewport.height);
-        const imgWidth = storeRef.current?.clientWidth;
-        setScrollX(-(imgWidth - viewport.width) * progress);
-      }
-    },
-    [viewport, storeRef]
-  );
+  useEffect(() => {
+    if (viewport.height && viewport.width && storeRef.current?.clientWidth) {
+      const progress = scrollY / (2000 - viewport.height);
+      const imgWidth = storeRef.current?.clientWidth;
+      setScrollX(-(imgWidth - viewport.width) * progress);
+    }
+  }, [viewport, storeRef, scrollY]);
   return (
     <div className="main-scene">
-      <div className="scroller" onScroll={handleScroll}>
-        <div className="dummy"></div>
-      </div>
+      <div className="dummy"></div>
       <div className="viewport">
-        <div className="scene" style={{ transform: `translate(${scrollX}px)` }}>
+        <div
+          className="scene"
+          style={{ transform: `translateX(${scrollX}px)` }}
+        >
           <div className="store">
             <img src={storeSrc} alt="" ref={storeRef} />
           </div>
