@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useWindowSize } from "../../utils/hooks";
 
 import storeSrc from "../../images/store.jpeg";
+import logoSrc from "../../images/logoShadow.png";
 import ebSrc from "../../images/eb.png";
 import gaygaySrc from "../../images/gaygay.png";
 import guaigaiSrc from "../../images/guaigai.png";
@@ -37,6 +38,9 @@ export default function MainScene() {
           <div className="store">
             <img src={storeSrc} alt="" ref={storeRef} />
           </div>
+          <div className="logo">
+            <img src={logoSrc} alt="" />
+          </div>
           <div className="eb">
             <img src={ebSrc} alt="" />
           </div>
@@ -45,6 +49,15 @@ export default function MainScene() {
           </div>
           <div className="guaigai">
             <img src={guaigaiSrc} alt="" />
+          </div>
+          <div className="xiabing">
+            <img src={xiabingSrc} alt="" />
+          </div>
+          <div className="kaorou">
+            <img src={kaorouSrc} alt="" />
+          </div>
+          <div className="quackbox">
+            <img src={quackboxSrc} alt="" />
           </div>
         </div>
       </div>

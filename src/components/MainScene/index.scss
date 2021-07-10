@@ -35,6 +35,13 @@
         height: 100%;
       }
 
+      & > .logo {
+        position: absolute;
+        bottom: 57%;
+        left: 43%;
+        height: 10%;
+      }
+
       & > .eb {
         position: absolute;
         bottom: 8%;
@@ -54,6 +61,27 @@
         bottom: 8%;
         left: 21.5%;
         height: 22%;
+      }
+
+      & > .xiabing {
+        position: absolute;
+        bottom: 14%;
+        left: 30%;
+        height: 19%;
+      }
+
+      & > .kaorou {
+        position: absolute;
+        bottom: 10%;
+        left: 37%;
+        height: 20%;
+      }
+
+      & > .quackbox {
+        position: absolute;
+        bottom: 8%;
+        left: 46%;
+        height: 19%;
       }
     }
   }
