@@ -3,8 +3,29 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
-  & > .dummy {
-    height: 2000px;
+  & > .left-edge,
+  & > .right-edge {
+    height: 100vh;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > img {
+      height: 56px;
+    }
+  }
+
+  & > .left-edge {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+
+  & > .right-edge {
+    position: fixed;
+    right: 0;
+    top: 0;
   }
 
   & > .viewport {
