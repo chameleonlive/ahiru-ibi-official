@@ -46,7 +46,7 @@ export default function MainScene() {
         setScrollX(maxX * progress);
       }
     },
-    [viewport, maxX]
+    [viewport, maxX, isTouchDevice]
   );
 
   const touchStart = useCallback(
@@ -78,7 +78,7 @@ export default function MainScene() {
       }
     };
     setTimeoutId(setTimeout(drag, 33));
-  }, [startClientX, lastScrollX, maxX, lastClientX]);
+  }, [startClientX, maxX, lastClientX]);
 
   return (
     <div className="main-scene">
