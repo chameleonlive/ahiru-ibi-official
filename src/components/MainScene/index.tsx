@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useWindowSize } from "../../utils/hooks";
 
 import storeSrc from "../../images/store.jpeg";
@@ -9,16 +9,17 @@ import guaigaiSrc from "../../images/guaigai.png";
 import xiabingSrc from "../../images/xiabing.png";
 import kaorouSrc from "../../images/kaorou.png";
 import quackboxSrc from "../../images/quackbox.png";
-import rightNavSrc from "../../images/right-nav.png";
-import leftNavSrc from "../../images/left-nav.png";
 
 import "./index.scss";
+
+function sigmoid(z: number) {
+  return 1 / (1 + Math.exp(-z));
+}
 
 export default function MainScene() {
   const viewport = useWindowSize();
   const [scrollX, setScrollX] = useState<number>(0);
   const [maxX, setMaxX] = useState<number>(0);
-  const [intervalId, setIntervalId] = useState<any>();
 
   const onStoreLoad = useCallback(
     (event) => {
@@ -31,21 +32,22 @@ export default function MainScene() {
     [viewport]
   );
 
-  const moveRight = useCallback(() => {
-    setScrollX((scrollX: number | undefined) =>
-      Math.max((scrollX || 0) - 5, maxX)
-    );
-  }, [maxX]);
-
-  const moveLeft = useCallback(() => {
-    setScrollX((scrollX: number | undefined) =>
-      Math.min((scrollX || 0) + 5, 0)
-    );
-  }, []);
+  const mouseMove = useCallback(
+    (event) => {
+      if (viewport.width) {
+        const progress = sigmoid(
+          ((event.clientX - viewport.width / 2) * 6) / viewport.width
+        );
+        console.log(progress);
+        setScrollX(maxX * progress);
+      }
+    },
+    [viewport, maxX]
+  );
 
   return (
     <div className="main-scene">
-      <div className="viewport">
+      <div className="viewport" onMouseMove={mouseMove}>
         <div
           className="scene"
           style={{ transform: `translateX(${scrollX}px)` }}
@@ -75,24 +77,6 @@ export default function MainScene() {
             <img src={quackboxSrc} alt="" />
           </div>
         </div>
-      </div>
-      <div
-        className="left-edge"
-        onMouseOver={() => setIntervalId(setInterval(moveLeft, 10))}
-        onMouseOut={() => clearInterval(intervalId)}
-      >
-        <img src={leftNavSrc} alt="" style={{ opacity: scrollX < 0 ? 1 : 0 }} />
-      </div>
-      <div
-        className="right-edge"
-        onMouseOver={() => setIntervalId(setInterval(moveRight, 10))}
-        onMouseOut={() => clearInterval(intervalId)}
-      >
-        <img
-          src={rightNavSrc}
-          alt=""
-          style={{ opacity: scrollX > maxX ? 1 : 0 }}
-        />
       </div>
     </div>
   );
