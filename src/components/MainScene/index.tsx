@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useWindowSize } from "../../utils/hooks";
+import { useIsTouchDevice, useWindowSize } from "../../utils/hooks";
 
 import storeSrc from "../../images/store.jpeg";
 import logoSrc from "../../images/logoShadow.png";
@@ -18,8 +18,13 @@ function sigmoid(z: number) {
 
 export default function MainScene() {
   const viewport = useWindowSize();
+  const isTouchDevice = useIsTouchDevice();
+  const [startClientX, setStartClientX] = useState<number>(0);
+  const [lastClientX, setLastClientX] = useState<number>(0);
+  const [lastScrollX, setLastScrollX] = useState<number>(0);
   const [scrollX, setScrollX] = useState<number>(0);
   const [maxX, setMaxX] = useState<number>(0);
+  const [timeoutId, setTimeoutId] = useState<any>(0);
 
   const onStoreLoad = useCallback(
     (event) => {
@@ -34,20 +39,56 @@ export default function MainScene() {
 
   const mouseMove = useCallback(
     (event) => {
-      if (viewport.width) {
+      if (viewport.width && !isTouchDevice) {
         const progress = sigmoid(
           ((event.clientX - viewport.width / 2) * 6) / viewport.width
         );
-        console.log(progress);
         setScrollX(maxX * progress);
       }
     },
     [viewport, maxX]
   );
 
+  const touchStart = useCallback(
+    (event) => {
+      clearTimeout(timeoutId);
+      setStartClientX(event.touches[0].clientX);
+      setLastClientX(event.touches[0].clientX);
+      setLastScrollX(scrollX);
+    },
+    [timeoutId, scrollX]
+  );
+
+  const touchMove = useCallback(
+    (event) => {
+      const delta = event.touches[0].clientX - startClientX;
+      setScrollX(Math.max(Math.min(lastScrollX + delta, 0), maxX));
+      setLastClientX(event.touches[0].clientX);
+    },
+    [startClientX, lastScrollX, maxX]
+  );
+
+  const touchEnd = useCallback(() => {
+    let delta = (lastClientX - startClientX) / 2;
+    const drag = () => {
+      setScrollX((scrollX) => Math.max(Math.min(scrollX + delta, 0), maxX));
+      delta /= 1.2;
+      if (Math.abs(delta) > 1) {
+        setTimeoutId(setTimeout(drag, 33));
+      }
+    };
+    setTimeoutId(setTimeout(drag, 33));
+  }, [startClientX, lastScrollX, maxX, lastClientX]);
+
   return (
     <div className="main-scene">
-      <div className="viewport" onMouseMove={mouseMove}>
+      <div
+        className="viewport"
+        onMouseMove={mouseMove}
+        onTouchStart={touchStart}
+        onTouchMove={touchMove}
+        onTouchEnd={touchEnd}
+      >
         <div
           className="scene"
           style={{ transform: `translateX(${scrollX}px)` }}
